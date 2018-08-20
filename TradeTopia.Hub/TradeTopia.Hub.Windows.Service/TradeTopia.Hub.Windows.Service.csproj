@@ -74,6 +74,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
@@ -93,8 +94,11 @@
     <Compile Include="Data\usr_User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="WebAPI\Controller\IdentityController.cs" />
+    <Compile Include="WebAPI\MessageHandlers\AuthenticationHandler.cs" />
     <Compile Include="WebAPI\MiddleWare\AuthenticationMiddleware.cs" />
     <Compile Include="WebAPI\MiddleWare\LoggingMiddleWare.cs" />
+    <Compile Include="WebAPI\Model\ErrorMessage.cs" />
+    <Compile Include="WebAPI\Model\SessionToken.cs" />
     <Compile Include="WindowsServices\WindowsServiceInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -123,9 +127,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="WebAPI\Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="WindowsServices\WindowsServiceInstaller.resx">
       <DependentUpon>WindowsServiceInstaller.cs</DependentUpon>

@@ -7,40 +7,51 @@ using System.Web.Http;
 
 namespace TradeTopia.Hub.Windows.Service.WebAPI.Controller
 {
-  [RoutePrefix("identity")]
+  [RoutePrefix("api/auth")]
   public class IdentityController : ApiController
   {
-    [Route("register")]
-    // POST api/identity 
-    public void Post([FromBody]string value)
+    [Route("")]
+    [HttpPost]
+    public IHttpActionResult CreateRegistration([FromBody]string value)
     {
+
+      return Ok();
     }
 
-    // GET api/identity 
-    public IEnumerable<string> Get()
-    {
-      return new string[] { "value1", "value2" };
-    }
-
-    // GET api/identity/5 
-    public string Get(int id)
-    {
-      return "value";
-    }
-
-    //// POST api/identity 
-    //public void Post([FromBody]string value)
+    //[Route("")]
+    //[HttpGet]
+    //[Authorize(Roles = "Administrator")]
+    //public IHttpActionResult GetAllUsers()
     //{
+    //  var lst = Data.usr_User.GetAll();
+
+    //  return Ok(lst);
     //}
 
-    // PUT api/identity/5 
-    public void Put(int id, [FromBody]string value)
-    {
-    }
+    //[Route("")]
+    //[HttpDelete]
+    //[Authorize(Roles = "Administrator")]
+    //public IHttpActionResult DeleteUser(Guid userToken)
+    //{
+    //  //var lst = Data.usr_User.GetAll();
 
-    // DELETE api/identity/5 
-    public void Delete(int id)
+    //  return Ok();
+    //}
+
+    [Route("")]
+    [HttpGet]
+    public IHttpActionResult CreateSessionToken([FromBody]string value)
     {
+      if (RequestContext.Principal != null)
+      {
+        var userName = RequestContext.Principal.Identity.Name;
+
+        var rv = new Model.SessionToken() { Token = Guid.NewGuid() };
+
+        return Ok(rv);
+      }
+
+      return Content(System.Net.HttpStatusCode.Unauthorized, Model.ErrorMessage.Unauthorized());
     }
   }
 }

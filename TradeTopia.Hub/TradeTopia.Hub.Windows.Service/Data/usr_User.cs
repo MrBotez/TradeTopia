@@ -46,6 +46,22 @@ namespace TradeTopia.Hub.Windows.Service.Data
       return null;
     }
 
+    public static List<usr_User> GetAll()
+    {
+      var sb = new StringBuilder();
+      sb.AppendLine($@"select * from usr_User");
+      var lst = DataContext.Instance.ExecuteSelect(sb.ToString());
+
+      var rv = lst.Select(x => new usr_User()
+      {
+        usr_Name = Convert.ToString(x.Columns[0].Value),
+        usr_Password = Convert.ToString(x.Columns[1].Value),
+        usr_Token = Guid.Parse(Convert.ToString(x.Columns[2].Value))
+      }).ToList();
+
+      return rv;
+    }
+
     public static usr_User GetByToken(Guid value)
     {
       var sb = new StringBuilder();

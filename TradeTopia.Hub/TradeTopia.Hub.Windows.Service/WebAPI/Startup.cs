@@ -12,16 +12,14 @@ namespace TradeTopia.Hub.Windows.Service.WebAPI
     // parameter in the WebApp.Start method.
     public void Configuration(IAppBuilder appBuilder)
     {
-      appBuilder.Use(typeof(MiddleWare.AuthenticationMiddleware));
+      //appBuilder.Use(typeof(MiddleWare.AuthenticationMiddleware));
       appBuilder.Use(typeof(MiddleWare.LoggingMiddleWare));
 
       // Configure Web API for self-host. 
       HttpConfiguration config = new HttpConfiguration();
-      config.Routes.MapHttpRoute(
-          name: "DefaultApi",
-          routeTemplate: "api/{controller}/{id}",
-          defaults: new { id = RouteParameter.Optional }
-      );
+      config.MapHttpAttributeRoutes();  //Use attribute routing
+      config.MessageHandlers.Add(new MessageHandlers.AuthenticationHandler());
+      config.EnsureInitialized();
 
       appBuilder.UseWebApi(config);
     }

@@ -66,7 +66,7 @@ namespace TradeTopia.Hub.Windows.Service.Data
         await cmd.ExecuteNonQueryAsync();
       }
 
-      var usr = usr_User.GetByToken(Guid.Parse("{9ACD822F-F5C1-493E-A5FF-B99DC22FD73F}"));
+      //var usr = usr_User.GetByToken(Guid.Parse("{9ACD822F-F5C1-493E-A5FF-B99DC22FD73F}"));
     }
 
     public void Dispose()

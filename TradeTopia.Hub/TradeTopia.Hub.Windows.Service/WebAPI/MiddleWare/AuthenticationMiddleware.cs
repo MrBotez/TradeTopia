@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,16 +17,6 @@ namespace TradeTopia.Hub.Windows.Service.WebAPI.MiddleWare
 
     public async override Task Invoke(IOwinContext context)
     {
-      //context.Request.OnSendingHeaders(state =>
-      //{
-      //  var resp = (OwinResponse)state;
-
-      //  if (resp.StatusCode == 401)
-      //  {
-      //    resp.SetHeader("WWW-Authenticate", "Basic");
-      //  }
-      //}, response);
-
       var header = context.Request.Headers.ContainsKey("Authorization") ? context.Request.Headers["Authorization"] : "";
 
       if (!String.IsNullOrWhiteSpace(header))
@@ -50,7 +41,7 @@ namespace TradeTopia.Hub.Windows.Service.WebAPI.MiddleWare
                 new Claim(ClaimTypes.Sid, Convert.ToString(usr.usr_Token))
               };
               var identity = new ClaimsIdentity(claims, "Basic");
-
+              //context.Request.User.Identity
               context.Authentication.User = new ClaimsPrincipal(identity);
             }
           }
